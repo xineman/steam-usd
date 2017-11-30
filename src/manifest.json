@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Steam Market USD",
+  "version": "1.0.0",
+  "description": "Chrome extension which converts all the prices on steam market to US dollars",
+  "background": {
+    "persistent": true,
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://steamcommunity.com/*"],
+      "js": ["content.js"]
+      // "css": ["mystyles.css"],
+    }
+  ],
+  "browser_action": {
+    "default_title": "",
+    "default_icon": "img/icon16.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "webRequest",
+    "cookies",
+    "webRequestBlocking",
+    "*://steamcommunity.com/*"
+  ],
+  "icons": {
+    "16": "img/icon16.png"
+  }
+}
