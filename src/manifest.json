@@ -21,8 +21,8 @@
   },
   "permissions": [
     "webRequest",
-    "cookies",
     "webRequestBlocking",
+    "cookies",
     "*://steamcommunity.com/*"
   ],
   "icons": {

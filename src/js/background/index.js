@@ -1,25 +1,26 @@
-const axios = require('axios');
+import axios from 'axios';
+import { GET_USD_PRICE } from '../constants';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
   (details) => {
-    for (let i = 0; i < details.requestHeaders.length; i += 1) {
-      if (details.requestHeaders[i].name === 'Cookie') {
-        details.requestHeaders.splice(i, 1);
-        break;
+    if (details.requestHeaders.find(h => h.name === 'no-cookie')) {
+      const cookies = details.requestHeaders.findIndex(h => h.name === 'Cookie');
+      if (cookies) {
+        details.requestHeaders.splice(cookies, 1);
+        return { requestHeaders: details.requestHeaders };
       }
     }
-    return { requestHeaders: details.requestHeaders };
+    return undefined;
   },
-  { urls: ['*://steamcommunity.com/*'] },
+  { urls: ['*://steamcommunity.com/market/*'] },
   ['blocking', 'requestHeaders']);
 chrome.runtime.onMessage.addListener(
-  () => {
-    axios.get('http://steamcommunity.com/market/listings/730/%E2%98%85%20Karambit%20%7C%20Slaughter%20%28Minimal%20Wear%29')
-      .then(({ data }) => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          chrome.tabs.sendMessage(tabs[0].id, { greeting: data }, (response) => {
-            console.log(response.farewell);
-          });
-        });
+  async (message) => {
+    if (message.type === GET_USD_PRICE) {
+      const { data: raw } = await axios.get('http://steamcommunity.com/market/',
+        { headers: { 'no-cookie': 'true' } });
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { raw });
       });
+    }
   });
