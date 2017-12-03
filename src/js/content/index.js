@@ -55,6 +55,6 @@ const getRate = async (request) => {
 };
 
 if (window.location.href.indexOf('listings') !== -1) {
-  chrome.runtime.sendMessage({ type: GET_USD_PRICE });
   chrome.runtime.onMessage.addListener(getRate);
+  chrome.runtime.sendMessage({ type: GET_USD_PRICE });
 }

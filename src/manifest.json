@@ -5,12 +5,12 @@
   "description": "Chrome extension which converts all the prices on steam market to US dollars",
   "background": {
     "persistent": true,
-    "scripts": ["background.js"]
+    "scripts": ["commons.js", "background.js"]
   },
   "content_scripts": [
     {
       "matches": ["*://steamcommunity.com/*"],
-      "js": ["content.js"]
+      "js": ["commons.js", "content.js"]
       // "css": ["mystyles.css"],
     }
   ],
