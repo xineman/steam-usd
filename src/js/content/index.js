@@ -25,15 +25,18 @@ const observeChart = (rate) => {
 
 const updateOrders = (rate) => {
   const table = document.getElementById('market_commodity_buyreqeusts_table');
+  const top = document.getElementById('market_commodity_buyrequests').lastElementChild;
   const orders = Array.from(table.firstElementChild.firstChild.children).slice(1);
   orders.forEach(({ firstElementChild: label }) => {
     const price = parsePrice(label.textContent);
     label.textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
   });
+  top.textContent = `$${(parsePrice(top.textContent) / rate).toFixed(2)}`;
 };
 
 const observeOrders = (rate) => {
   const table = document.getElementById('market_commodity_buyreqeusts_table');
+  const top = document.getElementById('market_commodity_buyrequests').lastElementChild;
   const observer = new MutationObserver(((mutations) => {
     mutations.forEach(() => {
       updateOrders(rate);
@@ -41,6 +44,7 @@ const observeOrders = (rate) => {
   }));
   const config = { childList: true };
   observer.observe(table, config);
+  observer.observe(top, config);
 };
 
 const getRate = async (request) => {
