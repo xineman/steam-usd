@@ -3,22 +3,28 @@ import { GET_USD_PRICE } from '../constants';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
   (details) => {
-    if (details.requestHeaders.find(h => h.name === 'no-cookie')) {
-      const cookies = details.requestHeaders.findIndex(h => h.name === 'Cookie');
-      if (cookies) {
-        details.requestHeaders.splice(cookies, 1);
-        return { requestHeaders: details.requestHeaders };
-      }
+    if (details.tabId === -1) {
+      return { requestHeaders: details.requestHeaders.filter(h => h.name !== 'Cookie') };
     }
     return undefined;
   },
-  { urls: ['*://steamcommunity.com/market/*'] },
+  { urls: ['*://steamcommunity.com/market?rate=1'] },
   ['blocking', 'requestHeaders']);
+
+chrome.webRequest.onHeadersReceived.addListener(
+  (details) => {
+    if (details.tabId === -1) {
+      return { responseHeaders: details.responseHeaders.filter(h => h.name !== 'Set-Cookie') };
+    }
+    return undefined;
+  },
+  { urls: ['*://steamcommunity.com/market?rate=1'] },
+  ['blocking', 'responseHeaders']);
+
 chrome.runtime.onMessage.addListener(
   async (message) => {
     if (message.type === GET_USD_PRICE) {
-      const { data: raw } = await axios.get('http://steamcommunity.com/market/',
-        { headers: { 'no-cookie': 'true' } });
+      const { data: raw } = await axios.get('http://steamcommunity.com/market?rate=1');
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, { raw });
       });
