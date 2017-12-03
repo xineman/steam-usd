@@ -3,6 +3,46 @@ import { GET_USD_PRICE } from '../constants';
 
 const parsePrice = price => parseFloat(price.replace(/,/, '.').replace(/[^\d.]/g, ''));
 
+const updateListings = (rate) => {
+  const prices = Array.from(document.getElementsByClassName('market_listing_price market_listing_price_with_fee'));
+  prices.forEach((p) => {
+    const price = parsePrice(p.textContent);
+    p.textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
+  });
+};
+
+const observeChart = (rate) => {
+  const tooltip = document.getElementsByClassName('jqplot-highlighter-tooltip')[0];
+  const observer = new MutationObserver(((mutations) => {
+    mutations.forEach((mutation) => {
+      const price = parsePrice(mutation.target.childNodes[2].textContent.slice());
+      mutation.target.childNodes[2].textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
+    });
+  }));
+  const config = { childList: true };
+  observer.observe(tooltip, config);
+};
+
+const updateOrders = (rate) => {
+  const table = document.getElementById('market_commodity_buyreqeusts_table');
+  const orders = Array.from(table.firstElementChild.firstChild.children).slice(1);
+  orders.forEach(({ firstElementChild: label }) => {
+    const price = parsePrice(label.textContent);
+    label.textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
+  });
+};
+
+const observeOrders = (rate) => {
+  const table = document.getElementById('market_commodity_buyreqeusts_table');
+  const observer = new MutationObserver(((mutations) => {
+    mutations.forEach(() => {
+      updateOrders(rate);
+    });
+  }));
+  const config = { childList: true };
+  observer.observe(table, config);
+};
+
 const getRate = async (request) => {
   let rate;
   const items = new DOMParser()
@@ -30,28 +70,10 @@ const getRate = async (request) => {
     }
   }
 
-  const prices = Array.from(document.getElementsByClassName('market_listing_price market_listing_price_with_fee'));
-  const tooltip = document.getElementsByClassName('jqplot-highlighter-tooltip')[0];
-
-  const observer = new MutationObserver(((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList') {
-        const price = parsePrice(mutation.target.childNodes[2].textContent.slice());
-        mutation.target.childNodes[2].textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
-      }
-    });
-  }));
-
-  // configuration of the observer:
-  const config = { attributes: true, childList: true, characterData: true };
-
-  // pass in the target node, as well as the observer options
-  observer.observe(tooltip, config);
-
-  prices.forEach((p) => {
-    const price = parsePrice(p.textContent);
-    p.textContent = `$${(price / rate).toFixed(2)}`; // eslint-disable-line
-  });
+  observeChart(rate);
+  updateListings(rate);
+  updateOrders(rate);
+  observeOrders(rate);
 };
 
 if (window.location.href.indexOf('listings') !== -1) {
