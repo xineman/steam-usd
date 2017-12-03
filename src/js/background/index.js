@@ -22,11 +22,9 @@ chrome.webRequest.onHeadersReceived.addListener(
   ['blocking', 'responseHeaders']);
 
 chrome.runtime.onMessage.addListener(
-  async (message) => {
+  async (message, sender) => {
     if (message.type === GET_USD_PRICE) {
       const { data: raw } = await axios.get('http://steamcommunity.com/market?rate=1');
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, { raw });
-      });
+      chrome.tabs.sendMessage(sender.tab.id, { raw });
     }
   });
