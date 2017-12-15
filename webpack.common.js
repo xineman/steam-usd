@@ -7,9 +7,9 @@ module.exports = {
   entry: {
     background: './src/js/background',
     content: './src/js/content',
+    popup: './src/js/popup',
     // devTools: './src/js/devTools',
     // options: './src/js/options',
-    // popup: './src/js/popup'
   },
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
@@ -29,23 +29,23 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
-      {
-        test: /\.css$/,
-        exclude: [
-          /node_modules/,
-        ],
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader?modules&localIdentName="[local]__[hash:base64:6]"', 'postcss-loader'],
-        }),
-      },
+      // {
+      //   test: /\.css$/,
+      //   exclude: [
+      //     /node_modules/,
+      //   ],
+      //   loader: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     use: ['css-loader?modules&localIdentName="[local]__[hash:base64:6]"', 'postcss-loader'],
+      //   }),
+      // },
     ],
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'master.css',
-      allChunks: true,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: 'master.css',
+    //   allChunks: true,
+    // }),
     new CopyWebpackPlugin([
       { from: './src' },
     ], {

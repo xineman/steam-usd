@@ -10,8 +10,8 @@
   "content_scripts": [
     {
       "matches": ["*://steamcommunity.com/*"],
-      "js": ["commons.js", "content.js"]
-      // "css": ["mystyles.css"],
+      "js": ["commons.js", "content.js"],
+      "css": ["css/main.css"]
     }
   ],
   "browser_action": {

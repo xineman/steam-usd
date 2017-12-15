@@ -1,0 +1,19 @@
+.market_listing_their_price {
+  width: 120px !important;
+}
+#market_buy_commodity_input_price {
+  width: 100px !important;
+}
+#market_buy_commodity_input_quantity {
+  width: 100px !important;
+}
+#market_buy_commodity_order_total {
+  width: 100px !important;
+  padding-right: 68px !important;
+}
+.market_buy_commodity_input {
+  min-width: 170px !important;
+}
+#market_buyorder_info_details_tablecontainer {
+  width: auto !important;
+}

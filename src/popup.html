@@ -4,9 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/popup.css">
   <title>Document</title>
 </head>
 <body>
-  test popup
+  <h3>Price calculator</h3>
+  <section class="calculator">
+    <div class="calculator__block">
+      <label class="calculator__label">Sell for:</label>
+      <input class="calculator__input" id="sellAmount" type="text" />
+    </div>
+    <div class="calculator__block calculator__block_converted">
+      <label class="calculator__label">Converted:</label>
+      <p class="calculator__converted" id="sellConverted">0</p>
+    </div>
+    <div class="calculator__block">
+      <label class="calculator__label">Will get:</label>
+      <input class="calculator__input" id="getAmount" type="text" />
+    </div>
+    <div class="calculator__block calculator__block_converted">
+        <label class="calculator__label">Converted:</label>
+        <p class="calculator__converted" id="getConverted">0</p>
+      </div>
+    <div class="calculator__block">
+      <label class="calculator__label">Rate:</label>
+      <input class="calculator__input" id="rateInput" type="text" value="27.1509" />
+    </div>
+  </section>
+  <script src="./commons.js"></script>
+  <script src="./popup.js"></script>
 </body>
 </html>

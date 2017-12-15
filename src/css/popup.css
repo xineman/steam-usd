@@ -1,0 +1,19 @@
+.calculator__block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
+}
+.calculator__block_converted {
+  margin-bottom: 10px;
+}
+.calculator__label{
+
+}
+.calculator__input{
+  width: 120px;
+}
+.calculator__converted {
+  margin: 0;
+  text-align: right;
+}
