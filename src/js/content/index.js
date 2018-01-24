@@ -11,16 +11,28 @@ const updateListings = (rate) => {
   });
 };
 
-const observeChart = (rate) => {
+const observeChartTooltip = (rate) => {
   const tooltip = document.getElementsByClassName('jqplot-highlighter-tooltip')[0];
   const observer = new MutationObserver(((mutations) => {
     mutations.forEach(({ target: { childNodes: c } }) => {
-      const price = parsePrice(c[2].textContent.slice());
-      c[2].textContent = `$${(price / rate).toFixed(2)} (${c[2].textContent.trim()})`; // eslint-disable-line
+      if (c[2]) {
+        const price = parsePrice(c[2].textContent.slice());
+        c[2].textContent = `$${(price / rate).toFixed(2)} (${c[2].textContent.trim()})`; // eslint-disable-line
+      }
     });
   }));
   const config = { childList: true };
   observer.observe(tooltip, config);
+};
+
+const observeChart = (rate) => {
+  const observer = new MutationObserver((() => {
+    observeChartTooltip(rate);
+  }));
+  const historyBlock = document.getElementById('pricehistory');
+  const config = { childList: true };
+  observer.observe(historyBlock, config);
+  observeChartTooltip(rate);
 };
 
 const updateOrders = (rate) => {
