@@ -59,6 +59,13 @@ const observeOrders = (rate) => {
   observer.observe(top, config);
 };
 
+const displayRate = (rate) => {
+  const el = document.createElement('p');
+  el.innerText = `Rate: ${rate.toFixed(2)}`;
+  el.className = 'extension__rate';
+  document.getElementsByTagName('body')[0].appendChild(el);
+};
+
 const getRate = async (request) => {
   let rate;
   const items = new DOMParser()
@@ -76,7 +83,7 @@ const getRate = async (request) => {
       const priceLocal = localItems[i].getElementsByClassName('normal_price')[1].textContent;
       const priceParsed = parsePrice(price);
       const priceLocalParsed = parsePrice(priceLocal);
-      if (priceParsed > 5) {
+      if (priceParsed > 8) {
         rate = priceLocalParsed / priceParsed;
         // console.log(price, priceLocal);
         // console.log(priceParsed, priceLocalParsed);
@@ -85,11 +92,11 @@ const getRate = async (request) => {
       }
     }
   }
-  rate = 27.1509;
   observeChart(rate);
   updateListings(rate);
   updateOrders(rate);
   observeOrders(rate);
+  displayRate(rate);
 };
 
 if (window.location.href.indexOf('listings') !== -1) {

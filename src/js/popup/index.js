@@ -5,7 +5,7 @@ const sellConverted = document.getElementById('sellConverted');
 const getConverted = document.getElementById('getConverted');
 const rateInput = document.getElementById('rateInput');
 
-let rate = 27.1509;
+let rate = 28;
 
 rateInput.addEventListener('keyup', function func() {
   rate = parseFloat(this.value);

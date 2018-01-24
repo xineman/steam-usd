@@ -17,3 +17,11 @@
 #market_buyorder_info_details_tablecontainer {
   width: auto !important;
 }
+.extension__rate {
+  margin: 0;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  color: #FAFAFA;
+  font: 700 18px sans-serif;
+}
