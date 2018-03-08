@@ -1,19 +1,24 @@
+.title {
+  margin: 0 0 10px;
+}
+.subtitle {
+  margin: 0 0 5px;
+}
 .calculator__block {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 180px;
-}
-.calculator__block_converted {
   margin-bottom: 10px;
 }
 .calculator__label{
 
 }
 .calculator__input{
-  width: 120px;
+  width: 100px;
 }
-.calculator__converted {
-  margin: 0;
-  text-align: right;
+.settings__input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }

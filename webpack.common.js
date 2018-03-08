@@ -1,5 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { optimize: { CommonsChunkPlugin } } = require('webpack');
 

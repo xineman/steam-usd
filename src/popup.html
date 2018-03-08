@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,59 @@
   <link rel="stylesheet" href="./css/popup.css">
   <title>Document</title>
 </head>
+
 <body>
-  <h3>Price calculator</h3>
+  <h3 class="title">Price calculator</h3>
   <section class="calculator">
     <div class="calculator__block">
       <label class="calculator__label">Sell for:</label>
       <input class="calculator__input" id="sellAmount" type="text" />
     </div>
-    <div class="calculator__block calculator__block_converted">
-      <label class="calculator__label">Converted:</label>
-      <p class="calculator__converted" id="sellConverted">0</p>
-    </div>
     <div class="calculator__block">
       <label class="calculator__label">Will get:</label>
       <input class="calculator__input" id="getAmount" type="text" />
     </div>
-    <div class="calculator__block calculator__block_converted">
-        <label class="calculator__label">Converted:</label>
-        <p class="calculator__converted" id="getConverted">0</p>
+  </section>
+  <h3 class="title">Settings</h3>
+  <section class="settings">
+    <h4 class="subtitle">Rate</h4>
+    <form>
+      <div class="settings__input-wrapper">
+        <input
+          id="apiRate"
+          class="settings__rate-radio"
+          type="radio"
+          name="rate"
+          value="api"
+          checked />
+        <label for="apiRate">Use <a href="https://fixer.io" target="_blank">fixer.io</a> API</label>
       </div>
-    <div class="calculator__block">
-      <label class="calculator__label">Rate:</label>
-      <input class="calculator__input" id="rateInput" type="text" value="28" />
+      <div class="settings__input-wrapper">
+        <input
+          id="calculateRate"
+          class="settings__rate-radio"
+          type="radio"
+          name="rate"
+          value="calculate" />
+        <label for="calculateRate">Calculate on page load</label>
+      </div>
+      <div class="settings__input-wrapper">
+        <input
+          id="manualRate"
+          class="settings__rate-radio"
+          type="radio"
+          name="rate"
+          value="manual" />
+        <label for="manualRate">Set manually</label>
+      </div>
+    </form>
+    <div id="manual-rate" class="calculator__block">
+      <label class="calculator__label">Current rate:</label>
+      <input class="calculator__input" id="rateInput" type="text" />
     </div>
   </section>
   <script src="./commons.js"></script>
   <script src="./popup.js"></script>
 </body>
+
 </html>
