@@ -24,7 +24,7 @@ chrome.webRequest.onHeadersReceived.addListener(
 chrome.runtime.onMessage.addListener(
   async (message, sender) => {
     if (message.type === GET_USD_PRICE) {
-      const { data: raw } = await axios.get('http://steamcommunity.com/market?rate=1');
+      const { data: raw } = await axios.get('https://steamcommunity.com/market?rate=1');
       chrome.tabs.sendMessage(sender.tab.id, { raw });
     }
   });

@@ -71,7 +71,7 @@ const getRate = async (request) => {
   const items = new DOMParser()
     .parseFromString(request.raw, 'text/html')
     .getElementsByClassName('market_listing_row_link');
-  const { data: localRaw } = await axios.get('http://steamcommunity.com/market/');
+  const { data: localRaw } = await axios.get('https://steamcommunity.com/market/');
   const localItems = new DOMParser()
     .parseFromString(localRaw, 'text/html')
     .getElementsByClassName('market_listing_row_link');
